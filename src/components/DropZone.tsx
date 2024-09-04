@@ -3,9 +3,10 @@ import { useDrop } from 'react-dnd';
 import DroppedItems from './DroppedItems';
 interface DropZoneProps {
   components: object[]; 
-  onDrop:any 
+  onDrop:any ;
+  onComponentSelect:(name:number[])=>void;
 }
-const DropZone: React.FC<DropZoneProps> = ({ components, onDrop }) => {
+const DropZone: React.FC<DropZoneProps> = ({ components, onDrop,onComponentSelect }) => {
   const [{isOver}, drop] = useDrop(() => ({
     accept: 'COMPONENT',
     drop: (item,monitor) => {
@@ -28,6 +29,7 @@ const DropZone: React.FC<DropZoneProps> = ({ components, onDrop }) => {
           component={component}
           onDrop={onDrop}
           indexMap={[index]}
+          onComponentSelect={onComponentSelect}
         />
       ))}
     </div>
