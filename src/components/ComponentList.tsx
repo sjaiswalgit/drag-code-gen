@@ -13,7 +13,7 @@ const DraggableMenuItem:React.FC<any>=({ component })=>{
   }));
 
   return (
-    <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1,backgroundColor:'grey',border:'1px dashed white', padding:'2px',width:'5rem',height:'2rem',textAlign:'center' }}>
+    <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1,backgroundColor:'#75e5ef',border:'1px dashed white', padding:'2px',width:'5rem',height:'2rem',textAlign:'center',color:'white' }}>
       {component.name}
     </div>
   );

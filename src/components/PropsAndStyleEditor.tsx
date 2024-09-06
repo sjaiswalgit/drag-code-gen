@@ -1,22 +1,15 @@
 
 import React, { useEffect, useState } from 'react';
-import { Form, } from 'antd';
+import { Form, Radio } from 'antd';
 import PropsEditorHelper from '../utlis/PropsEditorHelper';
 import { produce } from 'immer';
-const styleOptions = {
-  width: { type: 'number', label: 'Width' },
-  height: { type: 'number', label: 'Height' },
-  minHeight: { type: 'number', label: 'minHeight' },
-  minWidth: { type: 'number', label: 'minWidth' },
-  fontSize: { type: 'number', label: 'Font Size' },
-  color: { type: 'color', label: 'Text Color' },
-  backgroundColor: { type: 'color', label: 'Background Color' },
-  text: { type: 'string', label: 'Edit Text' },
-  src: { type: 'string', label: 'Edit Text' },
-  preview: { type: 'boolean', label: 'Preview' }
+
+const childrenOption = {
+  text: { type: 'string' },
 }
 
 const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComponents }) => {
+  const [display, setDisplay] = useState('props')
   const changeStyle = (style: any, styleParam: any, styleValue: any) => {
     setComponents((comp: any) => {
       const newComponent = produce(comp, (draft: any) => {
@@ -64,20 +57,28 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
 
 
   return (
-    <div style={{ backgroundColor: '#eaeaea', height: '100%' }}>
-      <h2 style={{ margin: 0, textAlign: 'center' }}>Style Editor</h2>
-      <hr />
-      <div style={{ marginLeft: "2rem", }}>
-        <Form >
-          {Object.entries(selectedComponent.defaultStyle).map(([styleParam, styleValue], index) => {
+    <div style={{ backgroundColor: '#eaeaea' }}>
+      <Radio.Group
+        block
+        options={[
+          { label: 'Props', value: 'props' },
+          { label: 'Styles', value: 'styles' }]}
+        defaultValue='props'
+        optionType="button"
+        buttonStyle="solid"
+        onChange={(e) => { setDisplay(e.target.value) }}
+      />
+      <Form style={{ overflow: 'auto', height: '30rem', marginTop: '4rem' }}>
+        {display === "styles" ? <>
+          {Object.entries(selectedComponent.styleList).map(([styleParam, styleValue], index) => {
             // Use "as keyof typeof styleOptions" to assert that styleParam is a valid key of styleOptions
-            const option = styleOptions[styleParam as keyof typeof styleOptions];
-
+            const typedStyleValue  =  styleValue as { default: any };
             return (
               <PropsEditorHelper
                 key={index}
-                option={option}
-                styleValue={styleValue}
+                styleParam={styleParam}
+                option={styleValue}
+                styleValue={selectedComponent.defaultStyle[styleParam] === undefined ? typedStyleValue.default : selectedComponent.defaultStyle[styleParam]}
                 changeStyle={(Value: any) => changeStyle("defaultStyle", styleParam, Value)}
               />
             );
@@ -85,23 +86,29 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
           {
             typeof (selectedComponent.children) === 'string' &&
             <PropsEditorHelper
-              option={styleOptions.text}
+              key={80}
+              styleParam={"Text"}
+              option={childrenOption.text}
               styleValue={selectedComponent.children}
               changeStyle={(Value: string) => changeChild(Value)}
             />
           }
-          {/* {Object.entries(selectedComponent.defaultProps).map(([styleParam,styleValue],index)=>{
-        return(
-        <RenderStyleFields
-            key={index}
-            option={styleOptions[styleParam]}
-            styleValue={styleValue}
-            changeStyle={(Value)=>changeStyle("defaultProps",styleParam,Value)}
-        />)
-      })
-      } */}
-        </Form>
-      </div>
+        </> : <>
+          {Object.entries(selectedComponent.propList).map(([styleParam, styleValue], index) => {
+            const typedStyleValue = styleValue as { default: any }; // Casting styleValue to an object with a "default" property
+            return (
+              <PropsEditorHelper
+                key={index}
+                option={styleValue}
+                styleParam={styleParam}
+                styleValue={selectedComponent.defaultProps[styleParam] === undefined ? typedStyleValue.default : selectedComponent.defaultProps[styleParam]}
+                changeStyle={(Value: any) => changeStyle("defaultProps", styleParam, Value)}
+              />
+            );
+          })}
+        </>
+        }
+      </Form>
     </div>
   );
 }

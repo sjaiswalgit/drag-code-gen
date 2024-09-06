@@ -3,18 +3,20 @@ import { Form, Input, InputNumber, Select, Slider, Switch, ColorPicker, Radio } 
 const { Option } = Select;
 interface PropsEditorHelperProps {
   option: any;
+  styleParam:any;
   styleValue: any;
   changeStyle: any
 }
 
 
-const PropsEditorHelper: React.FC<PropsEditorHelperProps> = ({ option, styleValue, changeStyle }) => {
+const PropsEditorHelper: React.FC<PropsEditorHelperProps> = ({styleParam, option, styleValue, changeStyle }) => {
 
 
+  if(typeof(option.type)==='string'){
   switch (option.type) {
     case 'string':
       return (
-        <Form.Item label={option.label}>
+        <Form.Item label={styleParam}>
           <Input.TextArea
             rows={4}
             style={{ display: 'block', width: '90%' }}
@@ -23,13 +25,12 @@ const PropsEditorHelper: React.FC<PropsEditorHelperProps> = ({ option, styleValu
           />
         </Form.Item>
       );
-    case 'number':
-      if (typeof styleValue === 'string') {
+    case 'numberp':
         const numericMatch = styleValue.match(/^\d+/); 
         const unitMatch = styleValue.match(/\D.*/);    
       
         return (
-          <Form.Item label={option.label}>
+          <Form.Item label={styleParam}>
             <InputNumber
               min={0}
               value={Number(numericMatch ? numericMatch[0] : 0)}
@@ -57,10 +58,9 @@ const PropsEditorHelper: React.FC<PropsEditorHelperProps> = ({ option, styleValu
             )}
           </Form.Item>
         );
-      }
-      else {
+    case 'number':
         return (
-          <Form.Item label={option.label} >
+          <Form.Item label={styleParam} >
             <InputNumber
               min={0}
               value={styleValue}
@@ -68,25 +68,10 @@ const PropsEditorHelper: React.FC<PropsEditorHelperProps> = ({ option, styleValu
             />
           </Form.Item>
         )
-      }
-    case 'select':
-      return (
-        <Form.Item label={option.label}>
-          <Select
-            value={styleValue}
-            onChange={(value) => changeStyle(value)}
-          >
-            {option.options.map((opt:any) => (
-              <Option key={opt.value} value={opt.value}>
-                {opt.label}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
-      );
+    
     case 'color':
       return (
-        <Form.Item label={option.label}>
+        <Form.Item label={styleParam}>
           <ColorPicker
             value={styleValue}
             onChange={(color) => changeStyle(color.toHexString())}
@@ -95,7 +80,7 @@ const PropsEditorHelper: React.FC<PropsEditorHelperProps> = ({ option, styleValu
       );
     case 'boolean':
       return (
-        <Form.Item label={option.label} valuePropName="checked">
+        <Form.Item label={styleParam} valuePropName="checked">
           <Switch
             checked={styleValue}
             onChange={(checked) => changeStyle(checked)}
@@ -104,7 +89,7 @@ const PropsEditorHelper: React.FC<PropsEditorHelperProps> = ({ option, styleValu
       );
     case 'range':
       return (
-        <Form.Item label={option.label}>
+        <Form.Item label={styleParam}>
           <Slider
             min={option.min}
             max={option.max}
@@ -116,6 +101,24 @@ const PropsEditorHelper: React.FC<PropsEditorHelperProps> = ({ option, styleValu
     default:
       return null;
   }
+}
+else{
+
+    return (
+      <Form.Item label={styleParam}>
+        <Select
+          value={styleValue}
+          onChange={(value) => changeStyle(value)}
+        >
+          {option.type.map((opt:any,index:any) => (
+            <Option key={index} value={opt}>
+              {opt}
+            </Option>
+          ))}
+        </Select>
+      </Form.Item>
+    );
+}
 }
 
 export default PropsEditorHelper;

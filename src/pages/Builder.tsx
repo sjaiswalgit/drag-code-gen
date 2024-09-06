@@ -32,6 +32,8 @@ function Builder() {
   return (
     <Layout>
     <Sider width={250} className="sidebar">
+      <h3>Components List</h3>
+      <hr/>
       <ComponentList />
     </Sider>
     <Content className="workspace">
@@ -41,14 +43,16 @@ function Builder() {
         onComponentSelect={setSelectedIndex}
       />
     </Content>
-    <Sider width={250} className="sidebar">
-    {selectedIndex.length>0 && (
+    <Sider width={300} className="sidebar">
+    <h3>Edit Styles and Props</h3>
+    <hr/>
+    {selectedIndex.length>0 ? 
         <PropsAndStyleEditor
           components={components}
           setComponents={setComponents}
           selectedIndex={selectedIndex}
-        />
-      )}
+        />:"Select a dropped component to edit"
+    }
     </Sider>
     </Layout>
   );
