@@ -13,7 +13,7 @@ const DraggableMenuItem:React.FC<any>=({ component })=>{
   }));
 
   return (
-    <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1,backgroundColor:'#75e5ef',border:'1px dashed white', padding:'2px',width:'5rem',height:'2rem',textAlign:'center',color:'white' }}>
+    <div ref={drag} className='componentItem' style={{ opacity: isDragging ? 0.5 : 1}}>
       {component.name}
     </div>
   );
@@ -21,7 +21,7 @@ const DraggableMenuItem:React.FC<any>=({ component })=>{
 
 function ComponentList() {
   return (
-    <div style={{width:'100%',display:'flex',flexDirection:'row', flexWrap:'wrap',justifyItems:'center',gap:4}}>
+    <div className='componentList' >
       {ComponentMap.map((component,index) => (
         <DraggableMenuItem key={index} component={component} />
       ))}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, Modal, Button } from 'antd';
 import ComponentList from '../components/ComponentList';
 import DropZone from '../components/DropZone';
@@ -27,19 +27,16 @@ function Builder() {
     )
   };
 
-
-
   return (
     <>
     {
-  
     previewOpen?
     <Preview components={components} setPreviewOpen={setPreviewOpen} />:
     <Layout style={{height:'100vh'}}>
       <Header className="header">Drag-Code-Gen</Header>
       <Layout>
       <Sider width={250} className="sidebar">
-        <h3>Components List</h3>
+        <h2 className='heading'>Components List</h2>
         <hr />
         <ComponentList />
       </Sider>
@@ -53,7 +50,7 @@ function Builder() {
         />
       </Content>
       <Sider width={300} className="sidebar">
-        <h3>Edit Styles and Props</h3>
+        <h2 className='heading'>Edit Styles and Props</h2>
         <hr />
         {selectedIndex.length > 0 ?
           <PropsAndStyleEditor
