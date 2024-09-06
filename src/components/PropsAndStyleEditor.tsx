@@ -65,6 +65,11 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
     setSelectedIndex([])
   }
 
+  useEffect(()=>{
+    setDisplay('props')
+  },[selectedIndex])
+
+
 
   const selectedComponent = selectedIndex.reduce((acc: any, ele: number, index: number) => {
     if (selectedIndex.length - 1 === index) {
@@ -91,6 +96,7 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
         defaultValue='props'
         optionType="button"
         buttonStyle="solid"
+        value={display}
         onChange={(e) => { setDisplay(e.target.value) }}
       />
       <Button icon={<DeleteFilled />} style={{ margin: '4px 0 0 10px' }} iconPosition='end' danger onClick={deleteChild}>

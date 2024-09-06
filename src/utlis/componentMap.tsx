@@ -123,7 +123,6 @@ export const ComponentMap: ComponentItemProps[] = [
     children: [],
     defaultStyle: {
       minHeight: '20rem',
-      backgroundColor: ''
     },
     styleList:{ 
       width: { type: 'numberp',default: '0px' },
@@ -150,7 +149,6 @@ export const ComponentMap: ComponentItemProps[] = [
     children: [],
     defaultStyle: {
       minHeight: '20rem',
-      backgroundColor: ''
     },
     styleList:{ 
       width: { type: 'numberp',default: '0px' },
