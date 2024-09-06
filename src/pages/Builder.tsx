@@ -51,6 +51,7 @@ function Builder() {
           components={components}
           setComponents={setComponents}
           selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
         />:"Select a dropped component to edit"
     }
     </Sider>
