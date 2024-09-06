@@ -1,5 +1,5 @@
 import { Input, Button, Select, Row, Col, Image, Typography, Flex, Dropdown, Anchor } from 'antd';
-
+import {DownOutlined} from "@ant-design/icons";
 const { Title, Text } = Typography;
 
 export interface ComponentItemProps {
@@ -43,7 +43,8 @@ export const ComponentMap: ComponentItemProps[] = [
       onPressEnter: { type: 'function', default: () => { } },
       size: { type: ['large', 'middle', 'small'], default: 'middle' },
     }
-  }, {
+  },
+   {
     name: 'Button',
     component: Button,
     defaultProps: { type: "primary" },
@@ -83,8 +84,8 @@ export const ComponentMap: ComponentItemProps[] = [
     defaultProps: {
       defaultValue: "option1",
       options: [
-        { value: 'option1', label: <span>sample1</span> },
-        { value: 'option2', label: <span>sample2</span> },
+        { value: 'option1', label: "sample1" },
+        { value: 'option2', label: "sample2" },
       ]
     },
     styleList:{ 
@@ -96,9 +97,10 @@ export const ComponentMap: ComponentItemProps[] = [
       backgroundColor: { type: 'color',default: undefined  }
     },
     propList: {
+      options:{type:'[ReactNode]',param:['value','label'] },
       allowClear: { type: 'boolean', default: false },
       autoFocus: { type: 'boolean', default: false },
-      bordered: { type: 'boolean', default: true },
+      variant: { type: ['outlined',  'borderless' , 'filled'], default: 'outlined' },
       defaultValue: { type: 'string', default: undefined },
       disabled: { type: 'boolean', default: false },
       dropdownClassName: { type: 'string', default: '' },
@@ -107,10 +109,9 @@ export const ComponentMap: ComponentItemProps[] = [
       getPopupContainer: { type: 'function', default: () => document.body },
       labelInValue: { type: 'boolean', default: false },
       mode: { type: ['default', 'multiple', 'tags'], default: 'default' },
-      notFoundContent: { type: 'ReactNode', default: 'Not Found' },
       optionLabelProp: { type: 'string', default: 'children' },
       placeholder: { type: 'string', default: '' },
-      showArrow: { type: 'boolean', default: true },
+      suffixIcon: { type: 'ReactNode', default: <DownOutlined /> },
       showSearch: { type: 'boolean', default: false },
       size: { type: ['large', 'middle', 'small'], default: 'middle' },
     }
@@ -278,20 +279,12 @@ export const ComponentMap: ComponentItemProps[] = [
       menu: {
         items: [
           {
-            key: '1',
-            label: (
-              <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-                1st menu item
-              </a>
-            ),
+            value: '1',
+            label: 'First Item',
           },
           {
-            key: '2',
-            label: (
-              <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-                2nd menu item
-              </a>
-            ),
+            value: '2',
+            label:'Second Item',
           },
         ]
       }
@@ -299,24 +292,17 @@ export const ComponentMap: ComponentItemProps[] = [
     defaultStyle: {
     },
     styleList:{ 
-      width: { type: 'numberp',default: '0px' },
-      height: { type: 'numberp',default: '0px'  },
-      minHeight: { type: 'numberp', default: '0px'  },
-      minWidth: { type: 'numberp',default: '0px' },
-      fontSize: { type: 'number',default: undefined  },
-      color: { type: 'color',default: undefined  },
-      backgroundColor: { type: 'color',default: undefined  }
+     
     },
     propList: {
+      menu:{type:'{[ReactNode]}',param:['value','label']},
       overlay: { type: 'ReactNode', default: null },
-      trigger: { type: ['click', 'hover', 'contextMenu'], default: 'click' },
+      trigger: { type: ['click', 'hover', 'contextMenu'], default: 'hover' },
       placement: { type: ['topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'], default: 'bottomLeft' },
       arrow: { type: 'boolean', default: false },
       disabled: { type: 'boolean', default: false },
       getPopupContainer: { type: 'function', default: () => { <span>test</span> } },
       onVisibleChange: { type: 'function', default: () => { } },
-      className: { type: 'string', default: '' },
-      style: { type: 'React.CSSProperties', default: {} }
     },
     children: <Text>Hover me</Text>
   },
@@ -344,13 +330,10 @@ export const ComponentMap: ComponentItemProps[] = [
     styleList:{ 
       width: { type: 'numberp',default: '0px' },
       height: { type: 'numberp',default: '0px'  },
-      minHeight: { type: 'numberp', default: '0px'  },
-      minWidth: { type: 'numberp',default: '0px' },
-      fontSize: { type: 'number',default: undefined  },
-      color: { type: 'color',default: undefined  },
       backgroundColor: { type: 'color',default: undefined  }
     },
     propList: {
+      items:{type:'[ReactNode]',param:['key','href','title']},
       affix: { type: 'boolean', default: true },
       bounds: { type: 'number', default: 5 },
       onClick: { type: 'function', default: () => { } },

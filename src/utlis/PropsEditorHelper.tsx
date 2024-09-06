@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, InputNumber, Select, Slider, Switch, ColorPicker, Radio } from 'antd';
+import KeyValueForm from './ReactNodeHelper';
 const { Option } = Select;
 interface PropsEditorHelperProps {
   option: any;
@@ -98,6 +99,15 @@ const PropsEditorHelper: React.FC<PropsEditorHelperProps> = ({styleParam, option
           />
         </Form.Item>
       );
+    case '[ReactNode]':
+      return(
+        <KeyValueForm paramList={option.param} objectList={styleValue} setObjectList={changeStyle} />
+      )
+    
+    case '{[ReactNode]}':
+        return(
+          <KeyValueForm paramList={option.param} objectList={Object.values(styleValue)[0]} setObjectList={(value:any)=>{changeStyle({[Object.keys(styleValue)[0]]:value})}} />
+        )
     default:
       return null;
   }

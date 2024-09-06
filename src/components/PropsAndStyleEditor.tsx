@@ -54,25 +54,30 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
       return acc[ele].children
     }
   }, components)
+  
+  const optionList=[
+    { label: 'Props', value: 'props' },
+    { label: 'Styles', value: 'styles' }]
 
+ if(typeof (selectedComponent.children) === 'string'){
+  optionList.push({label:'children',value:'children'})
+ }
 
   return (
     <div style={{ backgroundColor: '#eaeaea' }}>
       <Radio.Group
         block
-        options={[
-          { label: 'Props', value: 'props' },
-          { label: 'Styles', value: 'styles' }]}
+        options={optionList}
         defaultValue='props'
         optionType="button"
         buttonStyle="solid"
         onChange={(e) => { setDisplay(e.target.value) }}
       />
-      <Form style={{ overflow: 'auto', height: '30rem', marginTop: '4rem' }}>
-        {display === "styles" ? <>
+      <Form style={{ overflow: 'auto', height: '30rem', marginTop: '2rem' }}>
+        {display === "styles" && <>
           {Object.entries(selectedComponent.styleList).map(([styleParam, styleValue], index) => {
             // Use "as keyof typeof styleOptions" to assert that styleParam is a valid key of styleOptions
-            const typedStyleValue  =  styleValue as { default: any };
+            const typedStyleValue = styleValue as { default: any };
             return (
               <PropsEditorHelper
                 key={index}
@@ -83,8 +88,26 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
               />
             );
           })}
-          {
-            typeof (selectedComponent.children) === 'string' &&
+        </>
+        }{
+          display === "props" &&
+          <>
+            {Object.entries(selectedComponent.propList).map(([styleParam, styleValue], index) => {
+              const typedStyleValue = styleValue as { default: any }; // Casting styleValue to an object with a "default" property
+              return (
+                <PropsEditorHelper
+                  key={index}
+                  option={styleValue}
+                  styleParam={styleParam}
+                  styleValue={selectedComponent.defaultProps[styleParam] === undefined ? typedStyleValue.default : selectedComponent.defaultProps[styleParam]}
+                  changeStyle={(Value: any) => changeStyle("defaultProps", styleParam, Value)}
+                />
+              );
+            })}
+          </>
+        }
+         {
+            display === "children" &&
             <PropsEditorHelper
               key={80}
               styleParam={"Text"}
@@ -93,21 +116,6 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
               changeStyle={(Value: string) => changeChild(Value)}
             />
           }
-        </> : <>
-          {Object.entries(selectedComponent.propList).map(([styleParam, styleValue], index) => {
-            const typedStyleValue = styleValue as { default: any }; // Casting styleValue to an object with a "default" property
-            return (
-              <PropsEditorHelper
-                key={index}
-                option={styleValue}
-                styleParam={styleParam}
-                styleValue={selectedComponent.defaultProps[styleParam] === undefined ? typedStyleValue.default : selectedComponent.defaultProps[styleParam]}
-                changeStyle={(Value: any) => changeStyle("defaultProps", styleParam, Value)}
-              />
-            );
-          })}
-        </>
-        }
       </Form>
     </div>
   );
