@@ -239,7 +239,7 @@ export const ComponentMap: ComponentItemProps[] = [
   {
     name: 'Flex',
     component: Flex,
-    defaultProps: { gap: "middle", align: "start", vertical: false },
+    defaultProps: { },
     children: [{
       name: 'Text',
       component: Text,
@@ -264,9 +264,9 @@ export const ComponentMap: ComponentItemProps[] = [
     propList: {
       vertical: { type: 'boolean', default: false },
       wrap: { type: 'boolean', default: false },
-      justify: { type: ['start', 'end', 'center', 'space-around', 'space-between'], default: 'start' },
-      align: { type: ['top', 'middle', 'bottom'], default: 'top' },
-      flex: { type: 'string | number', default: 'normal' },
+      justify: { type: ['normal','start', 'end', 'center', 'space-around', 'space-between'], default: 'normal' },
+      align: { type:  ['normal','start', 'end', 'center', 'space-around', 'space-between'], default: 'normal' },
+      flex: { type: 'number', default: 1 },
       gap: { type: 'number', default: 0 },
     }
   },

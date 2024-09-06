@@ -10,10 +10,7 @@ const { Sider, Content,Header } = Layout;
 function App() {
   return (
     <DndProvider backend={HTML5Backend}>
-    <Layout style={{ height: '100vh' }}>
-      <Header className="header">Drag-Code-Gen</Header>
       <Builder />
-    </Layout>
     </DndProvider>
   );
 }

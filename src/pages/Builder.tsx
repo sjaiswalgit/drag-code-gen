@@ -3,6 +3,7 @@ import { Layout, Modal, Button } from 'antd';
 import ComponentList from '../components/ComponentList';
 import DropZone from '../components/DropZone';
 import PropsAndStyleEditor from '../components/PropsAndStyleEditor';
+import Preview from '../components/Preview';
 import CodePreview from '../components/CodePreview';
 import { produce } from 'immer';
 const { Sider, Content, Header } = Layout;
@@ -11,6 +12,7 @@ const { Sider, Content, Header } = Layout;
 function Builder() {
   const [components, setComponents] = useState<object[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
+  const [previewOpen,setPreviewOpen]=useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleDrop: any = (item: any, indexMap: any) => {
     setComponents(components => {
@@ -28,14 +30,22 @@ function Builder() {
 
 
   return (
-    <Layout>
+    <>
+    {
+  
+    previewOpen?
+    <Preview components={components} setPreviewOpen={setPreviewOpen} />:
+    <Layout style={{height:'100vh'}}>
+      <Header className="header">Drag-Code-Gen</Header>
+      <Layout>
       <Sider width={250} className="sidebar">
         <h3>Components List</h3>
         <hr />
         <ComponentList />
       </Sider>
       <Content className="workspace" >
-        <Button onClick={() => setIsModalOpen(true)} >Generate Code</Button>
+        <Button onClick={() => setPreviewOpen(true)} >Preview</Button>
+        <Button onClick={() => setIsModalOpen(true)} style={{float:'right'}} >Generate Code</Button>
         <DropZone
           components={components}
           onDrop={handleDrop}
@@ -54,10 +64,13 @@ function Builder() {
           /> : "Select a dropped component to edit"
         }
       </Sider>
-      <Modal open={isModalOpen} footer={[]} onCancel={() => setIsModalOpen(false)}>
+      </Layout>
+      <Modal open={isModalOpen}  footer={[]} onCancel={() => setIsModalOpen(false)}>
         <CodePreview components={components} />
       </Modal>
     </Layout>
+  }
+   </>
   );
 }
 
