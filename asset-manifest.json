@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/drag-code-gen/static/css/main.a6c178c9.css",
+    "main.js": "/drag-code-gen/static/js/main.00ab84d3.js",
+    "static/js/453.97be19dd.chunk.js": "/drag-code-gen/static/js/453.97be19dd.chunk.js",
+    "index.html": "/drag-code-gen/index.html",
+    "main.a6c178c9.css.map": "/drag-code-gen/static/css/main.a6c178c9.css.map",
+    "main.00ab84d3.js.map": "/drag-code-gen/static/js/main.00ab84d3.js.map",
+    "453.97be19dd.chunk.js.map": "/drag-code-gen/static/js/453.97be19dd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a6c178c9.css",
+    "static/js/main.00ab84d3.js"
+  ]
+}
