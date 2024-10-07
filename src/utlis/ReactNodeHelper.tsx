@@ -76,7 +76,7 @@ const KeyValueForm: React.FC <KeyValueFormProps>= ({objectList, setObjectList,pa
             block
             icon={<PlusOutlined />}
           >
-            Add Key-Value Pair
+            Add Items
           </Button>
         </Form.Item>
         </>
