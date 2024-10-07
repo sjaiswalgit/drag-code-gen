@@ -52,7 +52,7 @@ function Builder() {
       </Sider>
       <Content className="workspace" >
         <Button onClick={() => navigate('preview')} >Preview</Button>
-        <Button style={{marginLeft:'1rem'}} onClick={() =>{ setComponents([]);localStorage.removeItem('comp') }}danger >Reset</Button>
+        <Button style={{marginLeft:'1rem'}} onClick={() =>{setSelectedIndex([]); setComponents([]);localStorage.removeItem('comp') }}danger >Reset</Button>
         <Button onClick={() => setIsModalOpen(true)} style={{float:'right'}} >Generate Code</Button>
         <DropZone
           components={components}
