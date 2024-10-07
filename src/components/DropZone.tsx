@@ -22,7 +22,7 @@ const DropZone: React.FC<DropZoneProps> = ({ components, onDrop,onComponentSelec
   }));
   
   return (
-    <div ref={drop} style={{width:'100%', minHeight: '300px', height:'90%', border: '1px solid gray',overflow:'auto',margin:'2px' }}>
+    <div ref={drop} className='drop-zone' onClick={()=>{onComponentSelect([])}} >
       {components.map((component, index) => (
         <DroppedItems
           key={index}

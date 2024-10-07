@@ -90,6 +90,7 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
 
   return (
     <div style={{ backgroundColor: '#eaeaea' }}>
+      <h3>Selected Comp "{selectedComponent.name}"</h3>
       <Radio.Group
         block
         options={optionList}
