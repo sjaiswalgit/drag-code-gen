@@ -67,4 +67,55 @@ html, body, #root {
 .heading{
   text-align: center;
 }
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 20px;
+}
+
+.not-found-image {
+  width: 250px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.not-found-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.not-found-subtitle {
+  font-size: 1.25rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.not-found-code {
+  font-size: 1rem;
+  color: #999;
+  margin-bottom: 30px;
+}
+
+.home-button {
+  background-color: #007BFF;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.home-button:hover {
+  background-color: #0056b3;
+}
+
 
