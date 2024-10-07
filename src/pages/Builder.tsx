@@ -27,6 +27,19 @@ function Builder() {
     )
   };
 
+  useEffect(()=>{
+    if(components.length){
+    localStorage.setItem('comp',JSON.stringify(components))}
+  },[components])
+
+  useEffect(()=>{
+    const comp= localStorage.getItem('comp')
+    if(comp){
+      setComponents(JSON.parse(comp))
+    }
+  },[])
+
+
   return (
     <>
     {
@@ -42,6 +55,7 @@ function Builder() {
       </Sider>
       <Content className="workspace" >
         <Button onClick={() => setPreviewOpen(true)} >Preview</Button>
+        <Button style={{marginLeft:'1rem'}} onClick={() => setComponents([])}danger >Reset</Button>
         <Button onClick={() => setIsModalOpen(true)} style={{float:'right'}} >Generate Code</Button>
         <DropZone
           components={components}

@@ -4,7 +4,6 @@ const { Title, Text } = Typography;
 
 export interface ComponentItemProps {
   name: string;
-  component: React.ComponentType<any>;
   defaultProps: object;
   defaultStyle: React.CSSProperties;
   children?: any
@@ -12,10 +11,27 @@ export interface ComponentItemProps {
   propList: any
 }
 
+
+
+export const ComponentItemList: { [key: string]: React.ComponentType<any> } = {
+  Input:Input,
+  Button:Button,
+  Select:Select,
+  Row:Row,
+  Col:Col,
+  Image:Image,
+  Text:Text,
+  Flex:Flex,
+  Dropdown:Dropdown,
+  Anchor:Anchor
+};
+
+
+
+
 export const ComponentMap: ComponentItemProps[] = [
   {
     name: 'Input',
-    component: Input,
     defaultProps: { placeholder: 'Enter text' },
     defaultStyle: {
     },
@@ -46,7 +62,6 @@ export const ComponentMap: ComponentItemProps[] = [
   },
    {
     name: 'Button',
-    component: Button,
     defaultProps: { type: "primary" },
     children: 'Click me',
     defaultStyle: {
@@ -79,7 +94,6 @@ export const ComponentMap: ComponentItemProps[] = [
   },
   {
     name: 'Select',
-    component: Select,
     defaultStyle: {},
     defaultProps: {
       defaultValue: "option1",
@@ -118,7 +132,6 @@ export const ComponentMap: ComponentItemProps[] = [
   },
   {
     name: 'Row',
-    component: Row,
     defaultProps: {},
     children: [],
     defaultStyle: {
@@ -144,7 +157,6 @@ export const ComponentMap: ComponentItemProps[] = [
   },
   {
     name: 'Col',
-    component: Col,
     defaultProps: { span: 12 },
     children: [],
     defaultStyle: {
@@ -177,8 +189,7 @@ export const ComponentMap: ComponentItemProps[] = [
     }
   }, {
     name: 'Image',
-    component: Image,
-    defaultProps: { width: 200, src: '/logo192.png', preview: false },
+    defaultProps: { width: 200, src: '/drag-code-gen/logo192.png', preview: false },
     defaultStyle: {
       objectFit: 'contain',
 
@@ -193,10 +204,10 @@ export const ComponentMap: ComponentItemProps[] = [
       alt: { type: 'string', default: '' },
       fallback: { type: 'string', default: '' },
       height: { type: 'number', default: undefined },
+      width: { type: 'number', default: undefined },
       placeholder: { type: 'ReactNode', default: null },
       preview: { type: 'boolean', default: true },
       src: { type: 'string', default: '' },
-      width: { type: 'number', default: undefined },
       onError: { type: 'function', default: () => { } },
       onLoad: { type: 'function', default: () => { } },
       draggable: { type: 'boolean', default: false },
@@ -209,7 +220,6 @@ export const ComponentMap: ComponentItemProps[] = [
   },
   {
     name: 'Text',
-    component: Text,
     defaultProps: {},
     children: 'Write Something',
     defaultStyle: {},
@@ -238,7 +248,6 @@ export const ComponentMap: ComponentItemProps[] = [
   },
   {
     name: 'Flex',
-    component: Flex,
     defaultProps: { },
     children: [{
       name: 'Text',
@@ -272,7 +281,6 @@ export const ComponentMap: ComponentItemProps[] = [
   },
   {
     name: 'Dropdown',
-    component: Dropdown,
     defaultProps: {
       menu: {
         items: [
@@ -306,7 +314,6 @@ export const ComponentMap: ComponentItemProps[] = [
   },
   {
     name: 'Anchor',
-    component: Anchor,
     defaultProps: {
       affix: false,
       items: [

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-
+import { ComponentItemList } from '../utlis/componentMap';
 const  DroppedItems:React.FC<any>=({ component,indexMap,onDrop,onComponentSelect })=> {
 
     const [{ isOver }, drop] = useDrop(() => ({
@@ -16,29 +16,29 @@ const  DroppedItems:React.FC<any>=({ component,indexMap,onDrop,onComponentSelect
           isOver: !!monitor.isOver(),
         }),
       }));
-
+    const DynamicComponent = ComponentItemList[component.name];
     if (component.children) {
         if (Array.isArray(component.children)) {
           return (
-            <component.component {...component.defaultProps}   style={{ ...component.defaultStyle,border:'1px dashed grey'}} ref={drop}  onClick={(e:any) =>{ e.stopPropagation(); onComponentSelect(indexMap)}} >
+            <DynamicComponent {...component.defaultProps}   style={{ ...component.defaultStyle,border:'1px dashed grey'}} ref={drop}  onClick={(e:any) =>{ e.stopPropagation(); onComponentSelect(indexMap)}} >
               {component.children.map((subcomponet:any, subindex:any) => {
                 return (
                   <DroppedItems key={subindex} component={subcomponet} indexMap={[...indexMap, subindex]} onDrop={onDrop} onComponentSelect={onComponentSelect} />
                 )
-              })}</component.component>
+              })}</DynamicComponent>
           )
         }
         else {
           return (
-            <component.component {...component.defaultProps} style={component.defaultStyle} onClick={(e:any) =>{ e.stopPropagation(); onComponentSelect(indexMap)}}  >
+            <DynamicComponent {...component.defaultProps} style={component.defaultStyle} onClick={(e:any) =>{ e.stopPropagation(); onComponentSelect(indexMap)}}  >
               {component.children}
-            </component.component>
+            </DynamicComponent>
           );
         }
       }
       else {
         return (
-          <component.component {...component.defaultProps} style={component.defaultStyle} onClick={(e:any) =>{ e.stopPropagation(); onComponentSelect(indexMap)}} />)
+          <DynamicComponent {...component.defaultProps} style={component.defaultStyle} onClick={(e:any) =>{ e.stopPropagation(); onComponentSelect(indexMap)}} />)
       }
 }
 
