@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/drag-code-gen/static/css/main.3a25b4af.css",
-    "main.js": "/drag-code-gen/static/js/main.27fffeaf.js",
+    "main.js": "/drag-code-gen/static/js/main.0b9cb677.js",
     "static/js/453.97be19dd.chunk.js": "/drag-code-gen/static/js/453.97be19dd.chunk.js",
     "index.html": "/drag-code-gen/index.html",
     "main.3a25b4af.css.map": "/drag-code-gen/static/css/main.3a25b4af.css.map",
-    "main.27fffeaf.js.map": "/drag-code-gen/static/js/main.27fffeaf.js.map",
+    "main.0b9cb677.js.map": "/drag-code-gen/static/js/main.0b9cb677.js.map",
     "453.97be19dd.chunk.js.map": "/drag-code-gen/static/js/453.97be19dd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3a25b4af.css",
-    "static/js/main.27fffeaf.js"
+    "static/js/main.0b9cb677.js"
   ]
 }
