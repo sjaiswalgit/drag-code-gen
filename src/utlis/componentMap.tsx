@@ -252,12 +252,33 @@ export const ComponentMap: ComponentItemProps[] = [
   {
     name: 'Flex',
     defaultProps: { },
-    children: [{
+    children: [ {
       name: 'Text',
-      component: Text,
       defaultProps: {},
-      children: '',
-      defaultStyle: {}
+      children: 'Delete this Text only after dropping other component if you dont need it',
+      defaultStyle: {},
+      styleList:{ 
+        width: { type: 'numberp',default: '0px' },
+        height: { type: 'numberp',default: '0px'  },
+        minHeight: { type: 'numberp', default: '0px'  },
+        minWidth: { type: 'numberp',default: '0px' },
+        margin:{ type: 'numberp',default: '0px' },
+        padding:{ type: 'numberp',default: '0px' },
+        fontSize: { type: 'number',default: undefined  },
+        color: { type: 'color',default: undefined  },
+        overflow:{type:['visible','hidden','auto','scroll'],default:'visible'},
+        backgroundColor: { type: 'color',default: undefined  }
+      },
+      propList: {
+        code: { type: 'boolean', default: false },
+        delete: { type: 'boolean', default: false },
+        disabled: { type: 'boolean', default: false },
+        ellipsis: { type: 'boolean | object', default: false },
+        mark: { type: 'boolean', default: false },
+        strong: { type: 'boolean', default: false },
+        underline: { type: 'boolean', default: false },
+        type: { type: ['secondary', 'danger', 'success', 'warning', 'default'], default: 'default' }
+      }
     }],
     defaultStyle: {
       minHeight: '20rem',
@@ -338,7 +359,7 @@ export const ComponentMap: ComponentItemProps[] = [
     styleList:{ 
       width: { type: 'numberp',default: '0px' },
       height: { type: 'numberp',default: '0px'  },
-      backgroundColor: { type: 'color',default: undefined  }
+      backgroundColor: { type: 'color',default: undefined  },
     },
     propList: {
       items:{type:'[ReactNode]',param:['key','href','title']},

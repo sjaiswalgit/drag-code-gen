@@ -12,7 +12,7 @@ const Preview: React.FC = () => {
   },[])
   
   return (
-    <div >
+    <div style={{height:'100vh',width:'100vw',margin:0,padding:0}} >
       {components.map((component, index) => (
         <PreviewHelper
           key={index}

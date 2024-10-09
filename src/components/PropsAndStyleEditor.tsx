@@ -1,9 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Radio } from 'antd';
+import { Button, Form, Radio, Flex, Typography } from 'antd';
 import PropsEditorHelper from '../utlis/PropsEditorHelper';
 import { produce } from 'immer';
 import { DeleteFilled } from "@ant-design/icons";
+import ManualStyle from '../utlis/ManualStyle';
+const { Text } = Typography
 
 const childrenOption = {
   text: { type: 'string' },
@@ -11,6 +13,7 @@ const childrenOption = {
 
 const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComponents, setSelectedIndex }) => {
   const [display, setDisplay] = useState('props')
+  const [styleType, setStyleType] = useState('default')
   const changeStyle = (style: any, styleParam: any, styleValue: any) => {
     setComponents((comp: any) => {
       const newComponent = produce(comp, (draft: any) => {
@@ -65,9 +68,28 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
     setSelectedIndex([])
   }
 
-  useEffect(()=>{
+
+  const manualStyleChange=(newStyle:any)=>{
+    setComponents((comp: any) => {
+      const newComponent = produce(comp, (draft: any) => {
+        let component = selectedIndex.reduce((acc: any, ele: any, index: any) => {
+          if (selectedIndex.length - 1 === index) {
+            return acc[ele]
+          }
+          else {
+            return acc[ele].children
+          }
+        }, draft)
+        component.defaultStyle = newStyle
+      })
+
+      return newComponent
+    })
+  }
+
+  useEffect(() => {
     setDisplay('props')
-  },[selectedIndex])
+  }, [selectedIndex])
 
 
 
@@ -90,7 +112,12 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
 
   return (
     <div style={{ backgroundColor: '#eaeaea' }}>
-      <h3>Selected Comp "{selectedComponent.name}"</h3>
+      <Flex vertical={false} wrap={false} justify='center' align='center' style={{ marginBottom: '4px' }}>
+        <Text strong={true}>Selected Comp "{selectedComponent.name}"</Text>
+        <Button icon={<DeleteFilled />} style={{ margin: '4px 0 0 10px' }} iconPosition='end' danger onClick={deleteChild}>
+          Delete
+        </Button>
+      </Flex>
       <Radio.Group
         block
         options={optionList}
@@ -100,34 +127,57 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
         value={display}
         onChange={(e) => { setDisplay(e.target.value) }}
       />
-      <Button icon={<DeleteFilled />} style={{ margin: '4px 0 0 10px' }} iconPosition='end' danger onClick={deleteChild}>
-        Delete Component
-      </Button>
       <Form style={{ overflow: 'auto', height: '30rem', marginTop: '2rem' }}>
         {display === "styles" && <>
-          {Object.entries(selectedComponent.styleList).map(([styleParam, styleValue], index) => {
-            // Use "as keyof typeof styleOptions" to assert that styleParam is a valid key of styleOptions
-            const typedStyleValue = styleValue as { default: any };
-            return (
-              <PropsEditorHelper
-                key={index}
-                styleParam={styleParam}
-                option={styleValue}
-                styleValue={selectedComponent.defaultStyle[styleParam] === undefined ? typedStyleValue.default : selectedComponent.defaultStyle[styleParam]}
-                changeStyle={(Value: any) => changeStyle("defaultStyle", styleParam, Value)}
-              />
-            );
-          })}
+          <Radio.Group
+
+            options={[
+              { label: 'Default', value: 'default' },
+              { label: 'Manual', value: 'manual' }
+            ]}
+            defaultValue='default'
+            optionType="button"
+            style={{ marginBottom: '4px' }}
+            value={styleType}
+            onChange={(e) => { setStyleType(e.target.value) }}
+          />
+          <hr />
+          {styleType === 'default' ? <>
+            {Object.entries(selectedComponent.styleList).map(([styleParam, styleOptions], index) => {
+              // Use "as keyof typeof styleOptions" to assert that styleParam is a valid key of styleOptions
+              const typedStyleValue =styleOptions as { default: any };
+              return (
+                <PropsEditorHelper
+                  key={index}
+                  styleParam={styleParam}
+                  option={styleOptions}
+                  styleValue={selectedComponent.defaultStyle[styleParam] === undefined ? typedStyleValue.default : selectedComponent.defaultStyle[styleParam]}
+                  changeStyle={(Value: any) => changeStyle("defaultStyle", styleParam, Value)}
+                />
+              );
+            })}
+          </> :
+            <>
+            {
+              // Use "as keyof typeof styleOptions" to assert that styleParam is a valid key of styleOptions
+                <ManualStyle
+                  styleOptions={selectedComponent.defaultStyle}
+                  changeStyle={(newStyle:any) => manualStyleChange(newStyle)}
+                />
+              
+            }
+          </> 
+          }
         </>
         }{
           display === "props" &&
           <>
-            {Object.entries(selectedComponent.propList).map(([styleParam, styleValue], index) => {
-              const typedStyleValue = styleValue as { default: any }; // Casting styleValue to an object with a "default" property
+            {Object.entries(selectedComponent.propList).map(([styleParam, styleOptions], index) => {
+              const typedStyleValue = styleOptions as { default: any }; // Casting styleValue to an object with a "default" property
               return (
                 <PropsEditorHelper
                   key={index}
-                  option={styleValue}
+                  option={styleOptions}
                   styleParam={styleParam}
                   styleValue={selectedComponent.defaultProps[styleParam] === undefined ? typedStyleValue.default : selectedComponent.defaultProps[styleParam]}
                   changeStyle={(Value: any) => changeStyle("defaultProps", styleParam, Value)}
