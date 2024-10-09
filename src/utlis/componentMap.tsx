@@ -155,7 +155,8 @@ export const ComponentMap: ComponentItemProps[] = [
       align: { type: ['top', 'middle', 'bottom'], default: 'top' },
       gutter: { type: 'number', default: 0 },
       justify: { type: ['start', 'end', 'center', 'space-around', 'space-between'], default: 'start' },
-      wrap: { type: 'boolean', default: true }
+      wrap: { type: 'boolean', default: true },
+      id:{type:'string',default:''}
     }
   },
   {
