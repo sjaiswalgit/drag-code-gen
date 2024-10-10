@@ -1,5 +1,7 @@
 import React from 'react';
 import { ComponentItemList } from './componentMap';
+import {Typography} from 'antd';
+const {Text}=Typography
 const PreviewHelper: React.FC<any> = ({ component, indexMap }) => {
   const DynamicComponent = ComponentItemList[component.name];
   if (component.children) {
@@ -12,6 +14,16 @@ const PreviewHelper: React.FC<any> = ({ component, indexMap }) => {
             )
           })}</DynamicComponent>
       )
+    }
+    else if (typeof (component.children) === 'object') {
+      return (
+        <DynamicComponent {...component.defaultProps}
+          style={{
+            ...component.defaultStyle}}
+           >
+          <Text style={{ ...component.defaultStyle}}>{component.children.text}</Text>
+        </DynamicComponent>
+      );
     }
     else {
       return (

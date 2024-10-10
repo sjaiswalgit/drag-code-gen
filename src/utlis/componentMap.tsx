@@ -335,7 +335,7 @@ export const ComponentMap: ComponentItemProps[] = [
       getPopupContainer: { type: 'function', default: () => { <span>test</span> } },
       onVisibleChange: { type: 'function', default: () => { } },
     },
-    children: <Text>Hover me</Text>
+    children: {text:'Hover Me'}
   },
   {
     name: 'Anchor',

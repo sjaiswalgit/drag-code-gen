@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, message } from 'antd';
+import { Button, message ,Typography} from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import ReactDOMServer from 'react-dom/server';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
+const {Text}=Typography
 
 interface CodeGen {
   components: any;
@@ -62,7 +63,7 @@ const CodePreview: React.FC<CodeGen> = ({ components }) => {
       ${Array.isArray(children)
           ? children.map((child: any) => generateComponentJSX(child, level + 1)).join('\n') // Add indentation to children
           : typeof children === 'object'
-            ? ReactDOMServer.renderToStaticMarkup(children)
+            ? `${indent}<Text style={{ ${styleString} }}> ${children.text}</Text >`
             : children
         }${indent}
       </${ComponentName}>`;

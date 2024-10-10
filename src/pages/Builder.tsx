@@ -57,6 +57,7 @@ function Builder() {
         <DropZone
           components={components}
           onDrop={handleDrop}
+          selectedIndex={selectedIndex}
           onComponentSelect={setSelectedIndex}
         />
       </Content>

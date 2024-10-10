@@ -4,9 +4,10 @@ import DroppedItems from './DroppedItems';
 interface DropZoneProps {
   components: object[]; 
   onDrop:any ;
+  selectedIndex:number[]
   onComponentSelect:(name:number[])=>void;
 }
-const DropZone: React.FC<DropZoneProps> = ({ components, onDrop,onComponentSelect }) => {
+const DropZone: React.FC<DropZoneProps> = ({ components, onDrop ,selectedIndex ,onComponentSelect }) => {
   const [{isOver}, drop] = useDrop(() => ({
     accept: 'COMPONENT',
     drop: (item,monitor) => {
@@ -26,6 +27,7 @@ const DropZone: React.FC<DropZoneProps> = ({ components, onDrop,onComponentSelec
       {components.map((component, index) => (
         <DroppedItems
           key={index}
+          selectedIndex={selectedIndex}
           component={component}
           onDrop={onDrop}
           indexMap={[index]}

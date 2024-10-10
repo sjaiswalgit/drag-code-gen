@@ -106,7 +106,7 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
     { label: 'Props', value: 'props' },
     { label: 'Styles', value: 'styles' }]
 
-  if (typeof (selectedComponent.children) === 'string') {
+  if (typeof(selectedComponent.children)) {
     optionList.push({ label: 'children', value: 'children' })
   }
 
