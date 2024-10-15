@@ -42,7 +42,10 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
             return acc[ele].children
           }
         }, draft)
-        component.children = text
+        if (typeof (component.children) === 'string') { component.children = text }
+        else {
+          component.children.text = text
+        }
       })
 
       return newComponent
@@ -69,7 +72,7 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
   }
 
 
-  const manualStyleChange=(newStyle:any)=>{
+  const manualStyleChange = (newStyle: any) => {
     setComponents((comp: any) => {
       const newComponent = produce(comp, (draft: any) => {
         let component = selectedIndex.reduce((acc: any, ele: any, index: any) => {
@@ -106,7 +109,7 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
     { label: 'Props', value: 'props' },
     { label: 'Styles', value: 'styles' }]
 
-  if (typeof(selectedComponent.children)) {
+  if (selectedComponent.children && !Array.isArray(selectedComponent.children)) {
     optionList.push({ label: 'children', value: 'children' })
   }
 
@@ -145,7 +148,7 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
           {styleType === 'default' ? <>
             {Object.entries(selectedComponent.styleList).map(([styleParam, styleOptions], index) => {
               // Use "as keyof typeof styleOptions" to assert that styleParam is a valid key of styleOptions
-              const typedStyleValue =styleOptions as { default: any };
+              const typedStyleValue = styleOptions as { default: any };
               return (
                 <PropsEditorHelper
                   key={index}
@@ -158,15 +161,15 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
             })}
           </> :
             <>
-            {
-              // Use "as keyof typeof styleOptions" to assert that styleParam is a valid key of styleOptions
+              {
+                // Use "as keyof typeof styleOptions" to assert that styleParam is a valid key of styleOptions
                 <ManualStyle
                   styleOptions={selectedComponent.defaultStyle}
-                  changeStyle={(newStyle:any) => manualStyleChange(newStyle)}
+                  changeStyle={(newStyle: any) => manualStyleChange(newStyle)}
                 />
-              
-            }
-          </> 
+
+              }
+            </>
           }
         </>
         }{
@@ -192,7 +195,7 @@ const PropsAndStyleEditor: React.FC<any> = ({ components, selectedIndex, setComp
             key={80}
             styleParam={"Text"}
             option={childrenOption.text}
-            styleValue={selectedComponent.children}
+            styleValue={typeof (selectedComponent.children) === 'string' ? selectedComponent.children : selectedComponent.children.text}
             changeStyle={(Value: string) => changeChild(Value)}
           />
         }

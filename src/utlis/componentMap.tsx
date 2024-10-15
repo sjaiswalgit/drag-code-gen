@@ -354,7 +354,6 @@ export const ComponentMap: ComponentItemProps[] = [
         }]
     },
     defaultStyle: {
-      objectFit: 'contain',
 
     },
     styleList:{ 
