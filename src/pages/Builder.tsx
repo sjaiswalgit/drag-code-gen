@@ -43,7 +43,7 @@ function Builder() {
   return (
 
     <Layout style={{height:'100vh'}}>
-      <Header className="header">Drag-Code-Gen</Header>
+      <Header className="header">React Code Generator</Header>
       <Layout>
       <Sider width={250} className="sidebar">
         <h2 className='heading'>Components List</h2>
